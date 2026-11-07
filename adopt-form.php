@@ -37,12 +37,22 @@ $_SESSION['form_errors'] = [];
         <main>
             <form action="includes/scripts/process_adoption_form.php" method="POST">
                 <div>
+                    <?php 
+                        if (array_key_exists('name', $errors)) {
+                            echo '<p style="color:red">' . $errors['name'] . '</p>';
+                        }
+                    ?>
                     <label for="name">Your name:</label>
                     <input 
                         id="name" 
                         name="name" 
                         type="text" 
                         placeholder="Billy Bob"
+                        <?php if (count($errors) > 0 && $submittedName) {
+                            echo 'value="'. $submittedName . '"';
+                            // alternatively, you could use interpolation:
+                            //echo "value=\"{$submittedName}\"";
+                        } ?>
                     >
                 </div>
                 <div>
@@ -50,6 +60,11 @@ $_SESSION['form_errors'] = [];
                     <input id="phone_number" name="phone_number" type="tel" placeholder="888 8888">
                 </div>
                 <div>
+                    <?php 
+                        if (array_key_exists('email', $errors)) {
+                            echo '<p style="color:red">' . $errors['email'] . '</p>';
+                        }
+                    ?>
                     <label for="email">Your email:</label>
                     <!-- the 'name' attribute on the input is the key this value will be store in 
                      on the request; so 'name="email"' means the key will be 'email' -->
