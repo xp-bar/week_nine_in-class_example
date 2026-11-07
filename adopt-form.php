@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+// grab the errors from the session, or default to an empty 
+// array if the key does not exist or is null
+//
+// store the errors in a variable so we don't have to keep reading $_SESSION
+$errors = $_SESSION['form_errors'] ?? [];
+
+// store the inputs in a variable so we don't have to keep reading $_SESSION
+$submittedInputs = $_SESSION['form_input']   ?? [];
+$submittedName   = $submittedInputs['name']  ?? '';
+$submittedEmail  = $submittedInputs['email'] ?? '';
+
+// reset the inputted data so that if the user refreshes the page,
+// the old information is no longer in the session
+$_SESSION['form_input'] = [];
+
+// do the same with our errors:
+$_SESSION['form_errors'] = [];
+// etc.
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
